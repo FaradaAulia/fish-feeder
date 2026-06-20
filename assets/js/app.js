@@ -15,6 +15,44 @@ async function loadSensor() {
     (data.kelembapan ?? '--') + ' %'
 }
 
+async function feedFish() {
+
+  const response =
+    await fetch(
+      '/api/feed',
+      {
+        method: 'POST'
+      }
+    )
+
+  const data =
+    await response.json()
+
+  if (data.success) {
+
+    alert(
+      'Perintah memberi pakan dikirim'
+    )
+
+  } else {
+
+    alert(
+      'Gagal mengirim perintah'
+    )
+
+  }
+}
+
+document
+  .getElementById('feedBtn')
+  .addEventListener(
+    'click',
+    feedFish
+  )
+
 loadSensor()
 
-setInterval(loadSensor, 5000)
+setInterval(
+  loadSensor,
+  5000
+)
