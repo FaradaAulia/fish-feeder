@@ -11,13 +11,13 @@ export default async function handler(req, res) {
     .from('sensor_data')
     .insert([
       {
-        suhu: 99,
-        kelembapan: 99
+        suhu: 30,
+        kelembapan: 70
       }
     ])
     .select()
 
-  res.status(200).json({
+  return res.status(200).json({
     data,
     error
   })
