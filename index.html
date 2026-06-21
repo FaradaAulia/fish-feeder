@@ -54,8 +54,16 @@
         </h2>
 
         <p>
-          Klik untuk memberi makan ikan
+          Klik untuk memberi makan
         </p>
+
+        <div class="auto-feed-toggle">
+          <span>Mode Otomatis</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="autoFeedToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
       </div>
 
       <button id="feedBtn">
@@ -107,17 +115,23 @@
     </div>
 
     <!-- STATUS -->
-
     <div class="metric-card">
-
       <span>
         Status
       </span>
-
       <h2 id="status">
         --
       </h2>
+    </div>
 
+    <!-- KUALITAS PAKAN -->
+    <div class="metric-card">
+      <span>
+        Kualitas Pakan
+      </span>
+      <h2 id="kualitas-pakan" style="font-size: 2rem;">
+        --
+      </h2>
     </div>
 
     <!-- HISTORY -->

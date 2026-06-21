@@ -47,6 +47,27 @@ async function loadSensor()
     document.getElementById('status')
       .innerText =
       status;
+
+    // Hitung Kualitas Pakan berdasarkan Kelembapan (DHT11)
+    let kualitasPakan = 'Normal';
+    let warnaKualitas = '#f8fafc'; // Putih (default)
+
+    if (data.kelembapan < 50) {
+      kualitasPakan = 'Sangat Baik (Kering)';
+      warnaKualitas = '#4ade80'; // Hijau
+    } else if (data.kelembapan >= 50 && data.kelembapan <= 70) {
+      kualitasPakan = 'Normal (Aman)';
+      warnaKualitas = '#facc15'; // Kuning
+    } else if (data.kelembapan > 70) {
+      kualitasPakan = 'Rawan Jamur (Lembap)';
+      warnaKualitas = '#f87171'; // Merah
+    }
+
+    const kualitasEl = document.getElementById('kualitas-pakan');
+    if (kualitasEl) {
+      kualitasEl.innerText = kualitasPakan;
+      kualitasEl.style.color = warnaKualitas;
+    }
   }
   catch(error)
   {
@@ -310,6 +331,25 @@ document
     'click',
     feedFish
   );
+
+const autoFeedToggle = document.getElementById('autoFeedToggle');
+if (autoFeedToggle) {
+  autoFeedToggle.addEventListener('change', async (e) => {
+    const isAuto = e.target.checked;
+    console.log('Mode Otomatis:', isAuto ? 'Aktif' : 'Non-aktif');
+    
+    // Opsional: Kirim state ini ke backend / supabase agar Arduino tahu mode-nya
+    try {
+      await fetch('/api/set-mode', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ autoMode: isAuto })
+      });
+    } catch (err) {
+      console.error('Gagal mengubah mode:', err);
+    }
+  });
+}
 
 // ====================
 // INIT
