@@ -245,10 +245,19 @@ body {
   color: #e2e8f0;
 }
 
-#sensorChart {
-  width: 100% !important;
+.chart-wrapper {
+  position: relative;
   flex-grow: 1;
+  width: 100%;
   min-height: 250px;
+}
+
+#sensorChart {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* HISTORY CARD */
