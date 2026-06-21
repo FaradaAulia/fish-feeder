@@ -5,33 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fish Feeder IoT</title>
   <link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 <body>
 
 <div class="container">
 
-  <h1>🐟 Fish Feeder IoT</h1>
+  <header>
+    <h1>🐟 Fish Feeder IoT</h1>
+
+    <div id="device-status">
+      🟢 Device Online
+    </div>
+  </header>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>🌡 Suhu</h3>
+      <span id="suhu">--</span>
+    </div>
+
+    <div class="card">
+      <h3>💧 Kelembapan</h3>
+      <span id="kelembapan">--</span>
+    </div>
+
+    <div class="card">
+      <h3>Status Lingkungan</h3>
+      <span id="status">--</span>
+    </div>
+
+  </div>
+
+  <button id="feed-btn">
+    🐟 Beri Pakan
+  </button>
 
   <div class="card">
-    <h2>🌡️ Suhu</h2>
-    <div id="suhu">--</div>
+    <h3>📈 Grafik Sensor</h3>
+    <canvas id="sensorChart"></canvas>
   </div>
 
   <div class="card">
-    <h2>💧 Kelembapan</h2>
-    <div id="kelembapan">--</div>
-  </div>
+    <h3>📜 Riwayat Pakan</h3>
 
-  <div class="card">
-    <h2>🍽️ Kontrol Pakan</h2>
-
-    <button id="feedBtn">
-      🐟 Beri Pakan
-    </button>
+    <ul id="feed-history">
+    </ul>
   </div>
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="assets/js/app.js"></script>
 
 </body>

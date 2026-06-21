@@ -7,16 +7,13 @@ const supabase = createClient(
 
 export default async function handler(req, res)
 {
-  await supabase
-    .from('control')
-    .update({ feed: 1 })
-    .eq('id', 1)
-
-  await supabase
+  const { data } = await supabase
     .from('feed_logs')
-    .insert([{}])
+    .select('*')
+    .order('created_at', {
+      ascending: false
+    })
+    .limit(10)
 
-  res.status(200).json({
-    success: true
-  })
+  res.status(200).json(data)
 }
