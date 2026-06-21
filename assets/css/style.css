@@ -1,44 +1,230 @@
 body{
   margin:0;
   font-family:Poppins,sans-serif;
-  background:#0f172a;
+  background:
+    radial-gradient(
+      circle at top left,
+      #0ea5e9,
+      #020617 40%
+    );
   color:white;
+  min-height:100vh;
 }
 
 .container{
-  max-width:1200px;
+  width:90%;
+  max-width:1400px;
   margin:auto;
-  padding:20px;
+  padding:30px 0;
 }
 
-.cards{
+/* HERO */
+
+header{
+  margin-bottom:25px;
+}
+
+header h1{
+  margin:0;
+  font-size:42px;
+  font-weight:700;
+}
+
+header p{
+  color:#94a3b8;
+  margin-top:8px;
+}
+
+/* BENTO GRID */
+
+.dashboard{
   display:grid;
   grid-template-columns:
-  repeat(auto-fit,minmax(250px,1fr));
+    repeat(12,1fr);
+
   gap:20px;
 }
 
+/* CARD */
+
 .card{
-  background:#1e293b;
-  padding:20px;
-  border-radius:20px;
+  background:
+    rgba(30,41,59,.75);
+
+  backdrop-filter:
+    blur(20px);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  border-radius:28px;
+
+  padding:24px;
+
   box-shadow:
-  0 10px 30px rgba(0,0,0,.2);
+    0 10px 30px rgba(0,0,0,.25);
+
+  transition:.3s;
 }
 
-.card span{
-  font-size:32px;
-  font-weight:bold;
+.card:hover{
+  transform:
+    translateY(-5px);
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.35);
 }
 
-#feed-btn{
+.card h3{
+  margin-top:0;
+  color:#cbd5e1;
+}
+
+.hero h1{
+  margin:0;
+  font-size:42px;
+}
+
+.hero p{
+  color:#94a3b8;
+  margin-top:10px;
+}
+
+#device-status{
+  font-size:22px;
+  font-weight:600;
+}
+
+.stats .cards{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.stats span{
+  font-size:28px;
+  font-weight:700;
+}
+
+.chart canvas{
+  max-height:400px;
+}
+
+/* METRIC */
+
+.metric{
+  font-size:58px;
+  font-weight:700;
+  margin-top:10px;
+}
+
+/* BENTO SIZE */
+
+.hero{
+  grid-column:span 8;
+}
+
+.online{
+  grid-column:span 4;
+}
+
+.suhu{
+  grid-column:span 4;
+  border-left:5px solid #ef4444;
+}
+
+.humidity{
+  grid-column:span 4;
+  border-left:5px solid #3b82f6;
+}
+
+.status{
+  grid-column:span 4;
+  border-left:5px solid #22c55e;
+}
+
+.feed{
+  grid-column:span 12;
+}
+
+.chart{
+  grid-column:span 8;
+}
+
+.history{
+  grid-column:span 4;
+}
+
+.stats{
+  grid-column:span 12;
+}
+
+/* BUTTON */
+
+#feedBtn{
   width:100%;
-  margin:20px 0;
-  padding:18px;
+
+  padding:24px;
+
   border:none;
-  border-radius:15px;
-  background:#0ea5e9;
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0ea5e9,
+      #06b6d4
+    );
+
   color:white;
-  font-size:18px;
+
+  font-size:22px;
+
+  font-weight:600;
+
   cursor:pointer;
+
+  transition:.3s;
+}
+
+#feedBtn:hover{
+  transform:scale(1.02);
+}
+
+/* HISTORY */
+
+#feed-history{
+  padding-left:15px;
+}
+
+#feed-history li{
+  margin-bottom:12px;
+  color:#cbd5e1;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+  .dashboard{
+    grid-template-columns:1fr;
+  }
+
+  .hero,
+  .online,
+  .suhu,
+  .humidity,
+  .status,
+  .feed,
+  .chart,
+  .history,
+  .stats{
+    grid-column:span 1;
+  }
+
+  .metric{
+    font-size:42px;
+  }
+
 }

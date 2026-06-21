@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,57 +8,127 @@
   <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
+
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <header>
-    <h1>🐟 Fish Feeder IoT</h1>
+    <div class="dashboard">
 
-    <div id="device-status">
-      🟢 Device Online
-    </div>
-  </header>
+      <!-- HERO -->
 
-  <div class="cards">
+      <div class="card hero">
+        <h1>🐟 Fish Feeder IoT</h1>
+        <p>
+          Smart Aquarium Monitoring System
+        </p>
+      </div>
 
-    <div class="card">
-      <h3>🌡 Suhu</h3>
-      <span id="suhu">--</span>
-    </div>
+      <!-- ONLINE -->
 
-    <div class="card">
-      <h3>💧 Kelembapan</h3>
-      <span id="kelembapan">--</span>
-    </div>
+      <div class="card online">
+        <h3>Status Device</h3>
+        <div id="device-status">
+          🟢 Device Online
+        </div>
+      </div>
 
-    <div class="card">
-      <h3>Status Lingkungan</h3>
-      <span id="status">--</span>
+      <!-- SUHU -->
+
+      <div class="card suhu">
+        <h3>🌡 Suhu</h3>
+
+        <div id="suhu" class="metric">
+          --
+        </div>
+      </div>
+
+      <!-- KELEMBAPAN -->
+
+      <div class="card humidity">
+        <h3>💧 Kelembapan</h3>
+
+        <div id="kelembapan" class="metric">
+          --
+        </div>
+      </div>
+
+      <!-- STATUS -->
+
+      <div class="card status">
+        <h3>Status Lingkungan</h3>
+
+        <div id="status" class="metric" style="font-size:26px">
+          --
+        </div>
+      </div>
+
+      <!-- FEED -->
+
+      <div class="feed">
+        <button id="feedBtn">
+          🐟 Beri Pakan
+        </button>
+      </div>
+
+      <!-- GRAFIK -->
+
+      <div class="card chart">
+        <h3>📈 Grafik Sensor</h3>
+
+        <canvas id="sensorChart"></canvas>
+      </div>
+
+      <!-- HISTORY -->
+
+      <div class="card history">
+        <h3>📜 Riwayat Pakan</h3>
+
+        <ul id="feed-history">
+        </ul>
+      </div>
+
+      <!-- STATS -->
+
+      <div class="card stats">
+        <h3>📊 Ringkasan Hari Ini</h3>
+
+        <div class="cards">
+
+          <div>
+            <strong>Suhu Saat Ini</strong>
+            <br>
+            <span id="avg-suhu">
+              --
+            </span>
+          </div>
+
+          <div>
+            <strong>Kelembapan</strong>
+            <br>
+            <span id="avg-hum">
+              --
+            </span>
+          </div>
+
+          <div>
+            <strong>Total Pakan</strong>
+            <br>
+            <span id="total-feed">
+              --
+            </span>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
   </div>
 
-  <button id="feedBtn">
-    🐟 Beri Pakan
-  </button>
-
-  <div class="card">
-    <h3>📈 Grafik Sensor</h3>
-    <canvas id="sensorChart"></canvas>
-  </div>
-
-  <div class="card">
-    <h3>📜 Riwayat Pakan</h3>
-
-    <ul id="feed-history">
-    </ul>
-  </div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="assets/js/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="assets/js/app.js"></script>
 
 </body>
+
 </html>
