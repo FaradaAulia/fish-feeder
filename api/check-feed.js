@@ -17,5 +17,21 @@ export default async function handler(req, res) {
     return res.status(500).json(error)
   }
 
-  return res.status(200).json(data)
+  if (data.feed == 1)
+  {
+    await supabase
+      .from('control')
+      .update({ feed: 0 })
+      .eq('id', 1)
+
+    return res.status(200).json({
+      id: 1,
+      feed: 1
+    })
+  }
+
+  return res.status(200).json({
+    id: 1,
+    feed: 0
+  })
 }
