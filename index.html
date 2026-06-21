@@ -1,134 +1,174 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fish Feeder IoT</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fish Feeder IoT</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
-
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="dashboard">
+  <!-- HEADER -->
 
-      <!-- HERO -->
+  <div class="hero">
 
-      <div class="card hero">
-        <h1>🐟 Fish Feeder IoT</h1>
-        <p>
-          Smart Aquarium Monitoring System
-        </p>
+    <div>
+
+      <h1>🐟 Fish Feeder IoT</h1>
+
+      <p>
+        Smart Aquarium Monitoring System
+      </p>
+
+    </div>
+
+    <div id="device-status">
+
+      🟢 Online
+
+    </div>
+
+  </div>
+
+  <!-- MAIN GRID -->
+
+  <div class="dashboard">
+
+    <!-- FEED -->
+
+    <div class="feed-card">
+
+      <div class="feed-icon">
+        🐟
       </div>
 
-      <!-- ONLINE -->
+      <h2>
+        Beri Pakan
+      </h2>
 
-      <div class="card online">
-        <h3>Status Device</h3>
-        <div id="device-status">
-          🟢 Device Online
-        </div>
+      <p>
+        Klik untuk memberi makan ikan
+      </p>
+
+      <button id="feedBtn">
+        Beri Pakan
+      </button>
+
+    </div>
+
+    <!-- CHART -->
+
+    <div class="chart-card">
+
+      <div class="card-title">
+        Grafik Sensor
       </div>
 
-      <!-- SUHU -->
+      <canvas id="sensorChart"></canvas>
 
-      <div class="card suhu">
-        <h3>🌡 Suhu</h3>
+    </div>
 
-        <div id="suhu" class="metric">
+    <!-- SUHU -->
+
+    <div class="metric-card">
+
+      <span>
+        Suhu
+      </span>
+
+      <h2 id="suhu">
+        --
+      </h2>
+
+    </div>
+
+    <!-- HUMIDITY -->
+
+    <div class="metric-card">
+
+      <span>
+        Kelembapan
+      </span>
+
+      <h2 id="kelembapan">
+        --
+      </h2>
+
+    </div>
+
+    <!-- STATUS -->
+
+    <div class="metric-card">
+
+      <span>
+        Status
+      </span>
+
+      <h2 id="status">
+        --
+      </h2>
+
+    </div>
+
+    <!-- HISTORY -->
+
+    <div class="history-card">
+
+      <div class="card-title">
+        Riwayat Pakan
+      </div>
+
+      <ul id="feed-history"></ul>
+
+    </div>
+
+    <!-- SUMMARY -->
+
+    <div class="summary-card">
+
+      <div class="summary-item">
+
+        <span>Suhu Saat Ini</span>
+
+        <h3 id="avg-suhu">
           --
-        </div>
+        </h3>
+
       </div>
 
-      <!-- KELEMBAPAN -->
+      <div class="summary-item">
 
-      <div class="card humidity">
-        <h3>💧 Kelembapan</h3>
+        <span>Kelembapan</span>
 
-        <div id="kelembapan" class="metric">
+        <h3 id="avg-hum">
           --
-        </div>
+        </h3>
+
       </div>
 
-      <!-- STATUS -->
+      <div class="summary-item">
 
-      <div class="card status">
-        <h3>Status Lingkungan</h3>
+        <span>Total Pakan</span>
 
-        <div id="status" class="metric" style="font-size:26px">
+        <h3 id="total-feed">
           --
-        </div>
-      </div>
+        </h3>
 
-      <!-- FEED -->
-
-      <div class="feed">
-        <button id="feedBtn">
-          🐟 Beri Pakan
-        </button>
-      </div>
-
-      <!-- GRAFIK -->
-
-      <div class="card chart">
-        <h3>📈 Grafik Sensor</h3>
-
-        <canvas id="sensorChart"></canvas>
-      </div>
-
-      <!-- HISTORY -->
-
-      <div class="card history">
-        <h3>📜 Riwayat Pakan</h3>
-
-        <ul id="feed-history">
-        </ul>
-      </div>
-
-      <!-- STATS -->
-
-      <div class="card stats">
-        <h3>📊 Ringkasan Hari Ini</h3>
-
-        <div class="cards">
-
-          <div>
-            <strong>Suhu Saat Ini</strong>
-            <br>
-            <span id="avg-suhu">
-              --
-            </span>
-          </div>
-
-          <div>
-            <strong>Kelembapan</strong>
-            <br>
-            <span id="avg-hum">
-              --
-            </span>
-          </div>
-
-          <div>
-            <strong>Total Pakan</strong>
-            <br>
-            <span id="total-feed">
-              --
-            </span>
-          </div>
-
-        </div>
       </div>
 
     </div>
 
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="assets/js/app.js"></script>
+</div>
+
+<script src="assets/js/app.js"></script>
 
 </body>
-
 </html>
