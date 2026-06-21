@@ -6,142 +6,217 @@ let chart = null;
 
 async function loadSensor()
 {
-  const response =
-    await fetch('/api/latest');
-
-  const data =
-    await response.json();
-
-  document.getElementById('suhu')
-    .innerText =
-    (data.suhu ?? '--') + ' °C';
-
-  document.getElementById('kelembapan')
-    .innerText =
-    (data.kelembapan ?? '--') + ' %';
-
-  // Status lingkungan
-
-  let status =
-    '🟢 Normal';
-
-  if (data.suhu > 32)
+  try
   {
-    status =
-      '🔴 Suhu Terlalu Tinggi';
-  }
-  else if (data.suhu > 30)
-  {
-    status =
-      '🟡 Perlu Perhatian';
-  }
+    const response =
+      await fetch('/api/latest');
 
-  document.getElementById('status')
-    .innerText =
-    status;
+    const data =
+      await response.json();
+
+    document.getElementById('suhu')
+      .innerText =
+      (data.suhu ?? '--') + ' °C';
+
+    document.getElementById('kelembapan')
+      .innerText =
+      (data.kelembapan ?? '--') + ' %';
+
+    document.getElementById('avg-suhu')
+      .innerText =
+      (data.suhu ?? '--') + ' °C';
+
+    document.getElementById('avg-hum')
+      .innerText =
+      (data.kelembapan ?? '--') + ' %';
+
+    let status =
+      '🟢 Ekosistem Stabil';
+
+    if (data.suhu > 32)
+    {
+      status =
+        '🔴 Suhu Tinggi';
+    }
+    else if (data.suhu > 30)
+    {
+      status =
+        '🟡 Perlu Perhatian';
+    }
+
+    document.getElementById('status')
+      .innerText =
+      status;
+  }
+  catch(error)
+  {
+    console.log(error);
+  }
 }
 
 // ====================
-// GRAFIK
+// GRAFIK SENSOR
 // ====================
 
 async function loadChart()
 {
-  const response =
-    await fetch('/api/history');
-
-  const data =
-    await response.json();
-
-  const labels =
-    data.map((item, index) =>
-      index + 1
-    );
-
-  const suhu =
-    data.map(item =>
-      item.suhu
-    );
-
-  const kelembapan =
-    data.map(item =>
-      item.kelembapan
-    );
-
-  const ctx =
-    document
-      .getElementById('sensorChart')
-      .getContext('2d');
-
-  if (chart)
+  try
   {
-    chart.destroy();
-  }
+    const response =
+      await fetch('/api/history');
 
-  chart =
-    new Chart(ctx,
+    const data =
+      await response.json();
+
+    const labels =
+      data.map((item, index) =>
+        index + 1
+      );
+
+    const suhu =
+      data.map(item =>
+        item.suhu
+      );
+
+    const kelembapan =
+      data.map(item =>
+        item.kelembapan
+      );
+
+    const ctx =
+      document
+        .getElementById('sensorChart')
+        .getContext('2d');
+
+    if (chart)
     {
-      type: 'line',
+      chart.destroy();
+    }
 
-      data:
+    chart =
+      new Chart(ctx,
       {
-        labels,
+        type: 'line',
 
-        datasets:
-        [
+        data:
+        {
+          labels,
+
+          datasets:
+          [
+            {
+              label: 'Suhu',
+              data: suhu,
+              borderColor: '#0ea5e9',
+              backgroundColor:
+                'rgba(14,165,233,.15)',
+              fill: true,
+              borderWidth: 3,
+              tension: .4
+            },
+
+            {
+              label: 'Kelembapan',
+              data: kelembapan,
+              borderColor: '#22c55e',
+              backgroundColor:
+                'rgba(34,197,94,.15)',
+              fill: true,
+              borderWidth: 3,
+              tension: .4
+            }
+          ]
+        },
+
+        options:
+        {
+          responsive: true,
+          maintainAspectRatio: false,
+
+          plugins:
           {
-            label: 'Suhu',
-            data: suhu,
-            borderColor: '#ef4444',
-            tension: .4
+            legend:
+            {
+              labels:
+              {
+                color: '#ffffff'
+              }
+            }
           },
 
+          scales:
           {
-            label: 'Kelembapan',
-            data: kelembapan,
-            borderColor: '#3b82f6',
-            tension: .4
+            x:
+            {
+              ticks:
+              {
+                color: '#94a3b8'
+              }
+            },
+
+            y:
+            {
+              ticks:
+              {
+                color: '#94a3b8'
+              }
+            }
           }
-        ]
-      }
-    });
+        }
+      });
+  }
+  catch(error)
+  {
+    console.log(error);
+  }
 }
 
 // ====================
-// FEED HISTORY
+// RIWAYAT PAKAN
 // ====================
 
 async function loadFeedHistory()
 {
-  const response =
-    await fetch(
-      '/api/feed-history'
-    );
-
-  const data =
-    await response.json();
-
-  const ul =
-    document.getElementById(
-      'feed-history'
-    );
-
-  ul.innerHTML = '';
-
-  data.forEach(item =>
+  try
   {
-    const li =
-      document.createElement(
-        'li'
+    const response =
+      await fetch('/api/feed-history');
+
+    const data =
+      await response.json();
+
+    const ul =
+      document.getElementById(
+        'feed-history'
       );
 
-    li.innerText =
-      new Date(
-        item.created_at
-      ).toLocaleString();
+    ul.innerHTML = '';
 
-    ul.appendChild(li);
-  });
+    document.getElementById(
+      'total-feed'
+    ).innerText =
+      data.length;
+
+    data.forEach(item =>
+    {
+      const li =
+        document.createElement(
+          'li'
+        );
+
+      li.innerText =
+        '🐟 ' +
+        new Date(
+          item.created_at
+        ).toLocaleString('id-ID');
+
+      ul.appendChild(li);
+    });
+  }
+  catch(error)
+  {
+    console.log(error);
+  }
 }
 
 // ====================
@@ -160,28 +235,38 @@ async function feedFish()
   btn.innerText =
     '🐟 Memberi Pakan...';
 
-  const response =
-    await fetch(
-      '/api/feed',
-      {
-        method: 'POST'
-      }
-    );
-
-  const data =
-    await response.json();
-
-  if (data.success)
+  try
   {
-    btn.innerText =
-      '✅ Berhasil';
+    const response =
+      await fetch(
+        '/api/feed',
+        {
+          method: 'POST'
+        }
+      );
 
-    loadFeedHistory();
+    const data =
+      await response.json();
+
+    if (data.success)
+    {
+      btn.innerText =
+        '✅ Berhasil';
+
+      loadFeedHistory();
+    }
+    else
+    {
+      btn.innerText =
+        '❌ Gagal';
+    }
   }
-  else
+  catch(error)
   {
+    console.log(error);
+
     btn.innerText =
-      '❌ Gagal';
+      '❌ Error';
   }
 
   setTimeout(() =>
@@ -204,7 +289,13 @@ function setOnline()
       'device-status'
     )
     .innerHTML =
-    '🟢 Device Online';
+    `
+    🟢 Device Online
+    <br>
+    <small>
+      Realtime Monitoring
+    </small>
+    `;
 }
 
 // ====================
@@ -212,22 +303,22 @@ function setOnline()
 // ====================
 
 document
-  .getElementById('feedBtn')
+  .getElementById(
+    'feedBtn'
+  )
   .addEventListener(
     'click',
     feedFish
   );
 
 // ====================
-// LOAD
+// INIT
 // ====================
 
 async function init()
 {
   await loadSensor();
-
   await loadChart();
-
   await loadFeedHistory();
 
   setOnline();
